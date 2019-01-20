@@ -1,0 +1,49 @@
+<import src="../../common/message.wxml"/>
+<import src="/common/pageLoading.wxml"/>
+<view class='page'>
+  <block wx:if="{{ app_init }}">
+    <block wx:if="{{ notice_list.length > 0 }}">
+      <text class="title">系统公告</text>
+      <template is="message" data="{{list: notice_list }}" />
+    </block>
+    <text class="title">我的拼车群</text>
+    <view class="list" wx:if="{{ list && list.length > 0 }}">
+      <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+        <navigator url="/pages/groupDetail/groupDetail?group_id={{item.group_id}}" id="{{item.id}}" class="list-item">
+          <view class="list-avatar">群</view>
+          <view class="list-content">
+            <open-data class="list-title" type="groupName" open-gid="{{ item.wx_gid }}"></open-data>
+            <view class="list-info">
+              <text>{{ item.member_num }}人</text>
+              <view class="list-division" />
+              <text>行程:{{ item.trip_num }}</text>
+              <view class="list-division" />
+              <text>群主:</text>
+              <block wx:if="{{ item.owner_user_id == 0 }}">
+                <text class='list-warning'>群主未认领</text>
+              </block>
+              <block wx:if="{{ item.owner_user_id > 0 }}">
+                <image class='group-avatar' src='{{ item.owner_avatar_url || "../../images/profile.png" }}' />
+                <text>{{ item.owner_nick_name }}</text>
+              </block>
+            </view>
+          </view>
+        </navigator>
+      </block>
+    </view>
+    <view class="intro-wrap center text-disable" wx:if="{{ list || list.length > 0 }}">
+      {{docoment.group_page_info}}
+    </view>
+    <view class="empty" wx:if="{{ !list || list.length == 0 }}">
+      暂未加入群组。
+    </view>
+    <view class='intro-wrap' wx:if="{{ !list || list.length == 0 }}">
+      <navigator url='/pages/groupIntro/groupIntro'>
+        <button type='primary'>查看说明</button>
+      </navigator>
+    </view>
+  </block>
+  <block wx:if="{{ !app_init }}">
+    <template is="pageLoading" data="{{ loading: true }}" />
+  </block>
+</view>

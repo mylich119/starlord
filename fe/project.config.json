@@ -1,0 +1,117 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.3.0",
+	"appid": "wx1f9fb9bce77cd0e4",
+	"projectname": "%E6%8B%BC%E8%BD%A6%E7%BE%A4",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"scripts": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": 4,
+			"list": [
+				{
+					"id": 0,
+					"name": "群聊",
+					"pathName": "pages/index/index",
+					"query": "trip_id=15472804510000001&user_id=15472551590000001&from_publish=1",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "yBvfuyHx9LGE_-yo6N0QPHgaESbc3OmDJPrEPTD45EA@cr4dev",
+						"shareKey": "4G72dML4DLxGJivpvim1WUdDgPYeteJjhX-brD4kvpy1TrjReGSb2nnSir2Q5DpvtPkx4mF_ddGOd7QE7MUywg~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "车找人发布详情",
+					"pathName": "pages/driverPublishInfo/driverPublishInfo",
+					"query": "trip_id=15472956080000001&user_id=15472551590000001&from_publish=1",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "yBvfuyHx9LGE_-yo6N0QPHgaESbc3OmDJPrEPTD45EA@cr4dev",
+						"shareKey": "4G72dML4DLxGJivpvim1WUdDgPYeteJjhX-brD4kvpy1TrjReGSb2nnSir2Q5DpvtPkx4mF_ddGOd7QE7MUywg~~"
+					}
+				},
+				{
+					"id": 2,
+					"name": "车找人发布详情",
+					"pathName": "pages/passengerPublishInfo/passengerPublishInfo",
+					"query": "trip_id=15472567540000001&user_id=15472551590000001&from_publish=1",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "yBvfuyHx9LGE_-yo6N0QPHgaESbc3OmDJPrEPTD45EA@cr4dev",
+						"shareKey": "4G72dML4DLxGJivpvim1WUdDgPYeteJjhX-brD4kvpy1TrjReGSb2nnSir2Q5DpvtPkx4mF_ddGOd7QE7MUywg~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "车找人发分享",
+					"pathName": "pages/driverPublishShare/driverPublishShare",
+					"query": "trip_id=15473011010000001&user_id=15473007720000001",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "yBvfuyHx9LGE_-yo6N0QPHgaESbc3OmDJPrEPTD45EA@cr4dev",
+						"shareKey": "4G72dML4DLxGJivpvim1WUdDgPYeteJjhX-brD4kvpy1TrjReGSb2nnSir2Q5DpvtPkx4mF_ddGOd7QE7MUywg~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "人找车发分享",
+					"pathName": "pages/passengerPublishShare/passengerPublishShare",
+					"query": "trip_id=15473092510000001&user_id=15473014640000001",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "yBvfuyHx9LGE_-yo6N0QPHgaESbc3OmDJPrEPTD45EA@cr4dev",
+						"shareKey": "4G72dML4DLxGJivpvim1WUdDgPYeteJjhX-brD4kvpy1TrjReGSb2nnSir2Q5DpvtPkx4mF_ddGOd7QE7MUywg~~"
+					}
+				}
+			]
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "群聊",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "yBvfuyHx9LGE_-yo6N0QPHgaESbc3OmDJPrEPTD45EA@cr4dev",
+						"shareKey": "4G72dML4DLxGJivpvim1WUdDgPYeteJjhX-brD4kvpy1TrjReGSb2nnSir2Q5DpvtPkx4mF_ddGOd7QE7MUywg~~"
+					}
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,115 @@
+.group-wrap {
+  background: #fff;
+  padding: 12px;
+  margin-bottom: 2rpx;
+}
+.group-data {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+}
+.group-avatar {
+  height: 64px;
+  width: 64px;
+  background: #3cc51f;
+  color: #fff;
+  display: flex;
+  font-size: 28px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  border-radius: 2px;
+}
+.group-content {
+  flex: 1;
+}
+.group-name {
+  /* font-size: 17px; */
+  font-weight: 500;
+}
+.group-info {
+  font-size: 14px;
+}
+.group-operation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  align-content: center;
+}
+.group-btn {
+  color: #3cc51f;
+  margin-right: 12px;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.btn-notice-edit {
+  margin-right: 0;
+  margin-left: 8px;
+  display: inline-block;
+}
+.group-owner-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 12px;
+  font-size: 14px;
+}
+.group-owner-avatar {
+  height: 14px;
+  width: 14px;
+  border-radius: 7px;
+  overflow: hidden;
+  margin-right: 4px;
+}
+.group-owner-nickname {
+  font-size: 14px;
+  color: #555;
+}
+.group-notice {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+.notice-title {
+  font-weight: bold;
+}
+
+
+.tab-navBar {
+  position: static;
+}
+.tab-navItem {
+  padding: 0;
+  line-height: 44px;
+  height: 44px;
+}
+
+.list {
+  margin: 0 0 8px 0;
+  border: none;
+}
+.list-item {
+  margin-bottom: 6px;
+}
+.trip-date {
+  margin-bottom: 4px;
+}
+.trip-date-value {
+  font-weight: 500;
+  font-size: 36rpx;
+}
+.trip-list-btn {
+  color: #3cc51f;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.trip-list-info {
+  font-size: 14px;
+}
+.list-item-user {
+  margin: 12px 0 0 0;
+  padding: 10px 0 0 0;
+  border-top: 1rpx solid #f0f0f0;
+}

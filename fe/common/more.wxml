@@ -1,0 +1,9 @@
+<template name="more">
+<block wx:if="{{ data && data.length > 0 }}">
+  <view class='more-data-wrap'>
+    <view class='more-btn' hover-class='ontap' bindtap='loadMore' data-param='{{ param }}' wx:if="{{ !loading && has_next }}">点击加载更多</view>
+    <view class='no-more-text' wx:if="{{ !loading && !has_next }}">{{my_trips ? '显示30天内未过期的行程' : '已加载全部数据' }}</view>
+    <view class='more-loading-data' wx:if="{{ loading }}">数据加载中...</view>
+  </view>
+</block>
+</template>

@@ -1,0 +1,8 @@
+<template name="pageLoading">
+<block wx:if="{{loading}}">
+  <block wx:if="{{ !hide_progress }}">
+    <progress percent="{{percent || 100}}" active stroke-width="{{width || 2}}" />
+  </block>
+  <text class='page-loading-text'>{{ message || '数据加载中...' }}</text>
+</block>
+</template>

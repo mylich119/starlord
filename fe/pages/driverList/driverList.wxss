@@ -1,0 +1,26 @@
+.list {
+  margin: 8px 0 0 0;
+}
+.list-item {
+  margin-bottom: 8px;
+}
+.trip-date-icon {
+  margin-top: 18rpx;
+}
+.trip-date {
+  margin-bottom: 4px;
+}
+.trip-date-value {
+  font-weight: 500;
+  font-size: 36rpx;
+}
+.trip-list-info {
+  /* color: #3cc51f; */
+  font-size: 14px;
+  /* text-decoration: underline; */
+}
+.list-item-user {
+  margin: 12px 0 0 0;
+  padding: 10px 0 0 0;
+  border-top: 1rpx solid #f0f0f0;
+}

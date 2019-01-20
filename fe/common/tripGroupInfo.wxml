@@ -1,0 +1,26 @@
+<template name="tripGroupInfo">
+  <view class='list-item' wx:if="{{ from_search == 1 && detail.group_info && detail.group_info.length > 0 }}">
+    <view class='list-content'>
+      <view class='trip-data-item'>
+        <image class='trip-item-icon' src='/images/users.png' />
+        <view class='trip-item-value'>
+          <view class='trip-group-wrap' wx:if="{{ search_my == 1 }}">
+            <view class='trip-group-label'>来自拼车群:</view>
+            <block wx:for="{{ detail.group_info }}" wx:key="{{ groupItem.group_id }}" wx:for-item="groupItem">
+              <navigator class='trip-group' url='/pages/groupDetail/groupDetail?group_id={{ groupItem.group_id }}'>
+                <open-data class="trip-group-name" type="groupName" open-gid="{{ groupItem.wx_gid }}"></open-data>
+              </navigator>
+            </block>
+          </view>
+          <view class='trip-group-wrap' wx:if="{{ search_my != 1 }}">
+              <view class='trip-group-label'>来自{{ detail.group_info.length }}个拼车群，联系wx号:</view>
+              <block wx:for="{{ detail.group_info }}" wx:key="{{ groupItem.group_id }}" wx:for-item="groupItem">
+                <text wx:if="{{ !!groupItem.owner_wx_id }}" class='trip-group' data-content='{{ groupItem.owner_wx_id }}' catchtap='onClipboard'>{{ groupItem.owner_wx_id }}</text>
+              </block>
+              <view class='trip-group-label'>可加群</view>
+            </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

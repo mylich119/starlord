@@ -1,0 +1,23 @@
+<template name="guideModal">
+  <view class="mask" wx:if="{{isModalVisible}}">
+    <view class="modal">
+      <view class="modal-content">
+        <swiper class="guide-wrapper" indicator-dots="true" autoplay="true" interval="2000" duration="500">
+          <swiper-item>
+            <image class="img" src="/images/guide_group_select.png" />
+          </swiper-item>
+          <swiper-item>
+            <image class="img" src="/images/guide_index.png" />
+          </swiper-item>
+        </swiper>
+
+        <view class="info mt10">{{description}}</view>
+      </view>
+      <view class="modal-footer">
+        <button type="primary" class="btn-confirm" bindtap="onIKnow" open-type="share">
+          我知道了，别再烦我
+        </button>
+      </view>
+    </view>
+  </view>
+</template>

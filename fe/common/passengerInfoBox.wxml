@@ -1,0 +1,81 @@
+<import src="./passengerPrice.wxml"/>
+<import src="./tripMap.wxml"/>
+<import src="./tripGroupInfo.wxml"/>
+<template name="passengerInfoBox">
+  <template is="tripMap" data="{{ detail: detail }}" wx:if="{{ is_map_visible }}" />
+  <view class='list list-trip-info'>
+    <view class='list-item'>
+      <view class='list-content'>
+        <view class='trip-data-item'>
+          <image class='trip-item-icon trip-date-icon' src='/images/clock.png' />
+          <view class='trip-item-value trip-date'>
+            <view class='trip-date-value'>{{detail.is_everyday == 1 ? '每天' : detail.begin_date}} {{ detail.begin_time }}</view>
+            <view class='text-disable' wx:if="{{detail.is_expired == 1}}">已过期</view>
+            <text class='trip-info' wx:if="{{score && detail.score > -1}}">顺路度：{{ detail.score }}%</text>
+          </view>
+        </view>
+        <view class='trip-data-item'>
+          <image class='trip-item-icon' src='/images/location_start.png' />
+          <view class='trip-item-value'>
+            <view class='trip-item-label'>{{ detail.start_location_name }}</view>
+            <view class='trip-item-info'>{{ detail.start_location_address }}</view>
+          </view>
+          <view class='trip-line'></view>
+        </view>
+        <view class='trip-data-item'>
+          <image class='trip-item-icon' src='/images/location_end.png' />
+          <view class='trip-item-value'>
+            <view class='trip-item-label'>{{ detail.end_location_name }}</view>
+            <view class='trip-item-info'>{{ detail.end_location_address }}</view>
+          </view>
+        </view>
+        <view class='trip-data-item'>
+          <image class='trip-item-icon' src='/images/price.png' />
+          <view class='trip-item-value'>
+            <template is="passengerPrice" data="{{ detail: detail }}" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='list-item'>
+      <view class='list-content'>
+        <view class='trip-data-item'>
+          <image class='trip-item-icon' src='/images/tag.png' />
+          <view class='trip-item-value'>
+            <view class='trip-tags-wrap'>
+            <text class='trip-tags-label'>标签:</text>
+              <block wx:for-items="{{detail.tags}}" wx:key="{{item}}">
+                <text class='trip-tag'>{{ item }}</text>
+              </block>
+              <block wx:if="{{detail.tags.length == 0}}">
+                <text class='trip-ll'>无标签信息</text>
+              </block>
+            </view>
+          </view>
+        </view>
+        <view class='trip-data-item'>
+          <image class='trip-item-icon' src='/images/remark.png' />
+          <view class='trip-item-value'>
+            <view>
+              备注:
+              <text class='trip-ll'>{{ detail.tips || '无备注信息' }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <template is="tripGroupInfo" data="{{ detail: detail, from_search: from_search, search_my: search_my }}" />
+    <view class='list-item' wx:if="{{!is_hide_user}}">
+      <view class='list-trip-avatar'>
+        <image class='list-avatar-image' src='{{ detail.user_info.avatar_url }}' wx:if="{{detail.user_info && detail.user_info.avatar_url}}" />
+        <image class='list-avatar-image' src='/images/profile.png' wx:if="{{!detail.user_info || !detail.user_info.avatar_url}}" />
+      </view>
+      <view class='list-content' wx:if="{{ detail.user_info && detail.user_info.nick_name }}">
+        {{ detail.user_info.nick_name }} | {{ detail.user_info.phone }}
+      </view>
+      <view class='list-extra'>
+        <button plain size='mini' type='primary' class='list-trip-btn' bindtap='makeCall' data-phone='{{ detail.user_info.phone }}' wx:if="{{ detail.user_info && detail.user_info.phone }}">拨号</button>
+      </view>
+    </view>
+  </view>
+</template>

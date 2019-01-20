@@ -1,0 +1,5 @@
+<template name="passengerPrice">
+  <block>
+    愿付: {{ detail.price_everyone ? detail.price_everyone + '元/人' : '面议' }}，人数: {{ detail.people_num || '未说明' }}
+  </block>
+</template>

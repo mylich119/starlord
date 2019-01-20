@@ -1,0 +1,68 @@
+<template name="tripForm">
+  <!-- 时间 -->
+  <view class='list-item' wx:if="{{ show_frequency }}">
+    <view class='label'>
+      <text class='label-text'>频次</text>
+    </view>
+    <view class='list-content'>
+      <radio-group bindchange="bindRadioChange">
+        <label class="radio">
+          <radio value="0" checked="{{ data.is_everyday != 1 }}" />单次
+        </label>
+        <label class="radio">
+          <radio value="1" checked="{{ data.is_everyday == 1 }}" />每天
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  <view class='list-item' wx:if="{{ !show_frequency || data.is_everyday != 1 }}">
+    <view class='label'>
+      <text class='label-text'>日期</text>
+    </view>
+    <view class='list-content'>
+      <picker mode="date" name="begin_date" value='{{data.begin_date}}' bindchange="bindDateChange" start="{{limit.min_begin_date }}" end="{{ limit.max_begin_date }}">
+        <view class='picker-value'>
+          <text class='placeholder' wx:if="{{ !data.begin_date }}">请选择日期</text>
+          <text wx:if="{{ !!data.begin_date }}">{{ data.begin_date }}</text>
+        </view>
+      </picker>
+    </view>
+    <image class='list-arrow' src='/images/arrow_right.png' />
+  </view>
+  <view class='list-item'>
+    <view class='label'>
+      <text class='label-text'>时间</text>
+    </view>
+    <view class='list-content'>
+      <picker mode="time" name="begin_time" value='{{data.begin_time}}' bindchange="bindTimeChange">
+        <view class='picker-value'>
+          <text class='placeholder' wx:if="{{ !data.begin_time }}">请选择时间</text>
+          <text wx:if="{{ !!data.begin_time }}">{{ data.begin_time }}</text>
+        </view>
+      </picker>
+    </view>
+    <image class='list-arrow' src='/images/arrow_right.png' />
+  </view>
+  <!---->
+  <view class='list-item' bindtap='chooseLocation' data-location='start'>
+    <view class='label'>
+      <text class='label-text'>始发点</text>
+    </view>
+    <view class='list-content' hover-class='ontap'>
+      <view wx:if='{{!!data.start_location_name}}' class='location-address'>{{ data.start_location_name }}</view>
+      <view wx:if='{{!data.start_location_name}}' class='placeholder'>选择始发点</view>
+    </view>
+    <image class='list-arrow' src='/images/arrow_right.png' />
+  </view>
+  <!---->
+  <view class='list-item' bindtap='chooseLocation' data-location='end'>
+    <view class='label'>
+      <text class='label-text'>终点</text>
+    </view>
+    <view class='list-content' hover-class='ontap'>
+      <view wx:if='{{!!data.end_location_name}}' class='location-address'>{{ data.end_location_name }}</view>
+      <view wx:if='{{!data.end_location_name}}' class='placeholder'>选择终点</view>
+    </view>
+    <image class='list-arrow' src='/images/arrow_right.png' />
+  </view>
+</template>

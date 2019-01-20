@@ -1,0 +1,47 @@
+<import src="/common/loginBtn.wxml"/>
+<view class="page">
+  <block wx:if="{{is_login}}">
+    <view class='list'>
+      <view class='list-item'>
+        <view class='list-label'>
+          <text>头像</text>
+        </view>
+        <view class='list-content'>
+          <open-data class="avatar" type="userAvatarUrl" lang="zh_CN"></open-data>
+        </view>
+      </view>
+      <view class='list-item'>
+        <view class='list-label'>
+          <text>昵称</text>
+        </view>
+        <view class='list-content'>
+          <open-data type="userNickName" lang="zh_CN"></open-data>
+        </view>
+      </view>
+      <view class='list-item'>
+        <view class='list-label'>
+          <text>地区</text>
+        </view>
+        <view class='list-content'>
+          <open-data class="profile-item" type="userProvince" lang="zh_CN"></open-data>
+          <open-data class="profile-item" type="userCity" lang="zh_CN"></open-data>
+        </view>
+      </view>
+    </view>
+    <view class='list'>
+      <view class='list-item'>
+        <view class='list-label'>
+          <text>手机号</text>
+        </view>
+        <view class='list-content'>
+          <input class='text-input' name="phone" value='{{ profile.phone }}' bindinput='bindinput' data-name='phone' placeholder="输入手机号码" />
+        </view>
+      </view>
+    </view>
+    <view class='btn-wrap'>
+      <button type="primary" bindtap='onSubmit' loading='{{loading_submit}}' disabled="{{loading_submit}}">保存</button>
+      <text class='form-info' wx:if="{{ docoment.user_tip }}">{{ docoment.user_tip }}</text>
+    </view>
+  </block>
+  <template is="loginBtn" data='{{is_login: is_login, auth_message: "点击登录获取头像、昵称等"}}' />
+</view>

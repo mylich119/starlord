@@ -1,0 +1,7 @@
+<import src="/utils/wxParse/wxParse.wxml"/>
+<view class='page'>
+  <template is="wxParse" data="{{ wxParseData: agreement.nodes }}"/>
+  <view class='fixed_bottom'>
+    <button class='fixed-button' disabled='{{ loading }}' loading='{{ loading }}' type='primary' bindtap='onAgreement'>同意并返回</button>
+  </view>
+</view>

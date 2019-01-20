@@ -1,0 +1,26 @@
+.page {
+  margin-bottom: 46px;
+}
+.submit-wrap{
+  margin: 12px 24px;
+  text-align: center;
+}
+.info {
+  color: #888;
+  font-size: 32rpx;
+}
+.share-info {
+  color: #d81e06;
+  font-size: 14px;
+  text-align: center;
+}
+.fixed-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.fixed-button {
+  margin: 0 !important;
+  border-radius: 0!important;
+}

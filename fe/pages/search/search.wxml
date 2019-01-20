@@ -1,0 +1,41 @@
+<import src="../../common/message.wxml"/>
+<import src="/common/tripForm.wxml"/>
+<view class='page'>
+  <view class='tab-navBar'>
+    <block wx:for="{{tabs}}" wx:key="{{index}}">
+    <view id="{{index}}" class="tab-navItem {{params.trip_type==index ? 'tab-active' : ''}}" hover-class='ontap' bindtap="navTabClick">{{ item }}</view>
+    </block>
+  </view>
+  <view class='tab-content' style='height: {{contentHeight}}px'>
+    <scroll-view class='tab-scroll' scroll-y="{{true}}">
+      <form catchsubmit="onSearch">
+        <view class='list'>
+          <template is="message" wx:if="{{ docoment.platform_info }}" data="{{list: [docoment.platform_info] }}" />
+          <template is="tripForm" data='{{ data: params }}' />
+          <view class='list-item'>
+            <view class='label'>
+              <text class='label-text'>只搜索我的拼车群的行程</text>
+            </view>
+            <view class='list-content'>
+              <switch bindchange="bindSwitch" checked="{{ params.only_in_my_group == 1 }}" />
+            </view>
+          </view>
+          <view class='list-item list-tags-wrap' wx:if="{{false}}">
+            <view class='label'>
+              <text class='label-text'>筛选</text>
+            </view>
+            <view class='list-content list-tags'>
+              <block wx:for-items="{{tags}}" wx:key="{{item.value}}">
+                <view bindtap='toggleTag' data-name='{{ item.value }}' class='list-tag-item {{ params[item.value] == 1 ? "list-tag-item-active" : "" }}' hover-class='ontap'>{{item.label}}</view>
+              </block>
+            </view>
+          </view>
+        </view>
+        <view class='submit-wrap'>
+          <button type='primary' formType="submit">搜索顺路行程</button>
+          <view class='info' wx:if="{{ docoment.search_tip }}">{{ docoment.search_tip }}</view>
+        </view>
+      </form>
+    </scroll-view>
+  </view>
+</view>

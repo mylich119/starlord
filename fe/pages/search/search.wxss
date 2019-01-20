@@ -1,0 +1,15 @@
+.list {
+  margin: 0;
+}
+.list-content {
+  text-align: right;
+}
+.submit-wrap {
+  margin: 12px 24px 24px 24px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.submit-wrap .info {
+  font-size: 32rpx;
+  color: #666;
+}

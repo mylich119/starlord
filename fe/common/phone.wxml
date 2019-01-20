@@ -1,0 +1,12 @@
+<template name="phone">
+  <navigator class='list-item' url='/pages/info/info?back=1'>
+    <view class='label'>
+      <text class='label-text'>手机号码</text>
+    </view>
+    <view class='list-content' hover-class='ontap'>
+      <view wx:if='{{!!phone}}'>{{ phone }}</view>
+      <view wx:if='{{!phone}}' class='placeholder'>设置手机号码</view>
+    </view>
+    <image class='list-arrow' src='/images/arrow_right.png' />
+  </navigator>
+</template>

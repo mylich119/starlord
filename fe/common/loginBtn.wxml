@@ -1,0 +1,8 @@
+<template name="loginBtn">
+  <block wx:if="{{!is_login}}">
+    <view class='auth-wrap'>
+      <view class='auth-message' wx:if="{{!!auth_message}}"><text>{{ auth_message }}</text></view>
+      <button type='primary' open-type="getUserInfo" bindgetuserinfo="getUserInfo" lang="zh_CN">登录</button>
+    </view>
+  </block>
+</template>

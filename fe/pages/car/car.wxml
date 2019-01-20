@@ -1,0 +1,71 @@
+<import src="/common/pageLoading.wxml"/>
+<view class="page">
+  <block wx:if="{{!loading_data}}">
+    <form catchsubmit="formSubmit">
+      <view class='list'>
+        <!-- 车牌 -->
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>车牌</text>
+          </view>
+          <view class='list-content'>
+            <input class='text-input' bindinput="bindinput" value='{{profile.car_plate}}' data-name='car_plate' placeholder="输入车牌号，如京A88888" />
+          </view>
+        </view>
+        <!---->
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>品牌</text>
+          </view>
+          <view class='list-content'>
+            <input class='text-input' bindinput="bindinput" value='{{profile.car_brand}}' data-name='car_brand' placeholder="输入品牌，如“大众”" />
+          </view>
+        </view>
+        <!---->
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>型号</text>
+          </view>
+          <view class='list-content'>
+            <input class='text-input' bindinput="bindinput" value='{{profile.car_model}}' data-name='car_model' placeholder="如“速腾”" />
+          </view>
+        </view>
+        <!---->
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>颜色</text>
+          </view>
+          <view class='list-content'>
+            <picker range="{{colors}}" value='{{car_color_index}}' bindchange="bindPickerChange" data-name='car_color'>
+              <view class='picker-value'>
+                <text class='placeholder' wx:if="{{ car_color_index == -1 }}">请选择</text>
+                <text wx:if="{{ car_color_index > -1 }}">{{ profile.car_color }}</text>
+              </view>
+            </picker>
+          </view>
+          <image class='list-arrow' src='/images/arrow_right.png' />
+        </view>
+        <!---->
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>类型</text>
+          </view>
+          <view class='list-content'>
+            <picker range="{{types}}" value='{{ car_type_index }}' bindchange="bindPickerChange" data-name='car_type'>
+              <view class='picker-value'>
+                <text class='placeholder' wx:if="{{ car_type_index == -1 }}">请选择</text>
+                <text wx:if="{{ car_type_index > -1 }}">{{ profile.car_type }}</text>
+              </view>
+            </picker>
+          </view>
+          <image class='list-arrow' src='/images/arrow_right.png' />
+        </view>
+      </view>
+      <view class='btn-wrap'>
+        <button type="primary" formType="submit" loading='{{loading_update}}'>保存</button>
+        <text class='form-info' wx:if="{{ docoment.car_tip }}">{{ docoment.car_tip }}</text>
+      </view>
+    </form>
+  </block>
+  <template is="pageLoading" data="{{loading:loading_data}}" />
+</view>

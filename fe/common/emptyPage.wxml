@@ -1,0 +1,9 @@
+<template name="emptyPage">
+<view class="empty-page" wx:if="{{show}}">
+  <image class="empty-page-icon" src="../../images/about_us.png"></image>
+  <text class="empty-page-text">{{ text || '暂无数据' }}</text>
+  <navigator url="/pages/index/index" open-type='reLaunch' wx:if="{{homepage}}">
+    <button type='primary'>返回首页</button>
+  </navigator>
+</view>
+</template>

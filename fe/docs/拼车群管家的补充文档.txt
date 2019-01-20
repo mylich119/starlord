@@ -1,0 +1,747 @@
+登录
+
+检查本地ticket，
+如果没有ticket，wx.login获取code，调用/login ， 返回ticket并存入。
+如果有ticket，所有请求带上ticket，当接口返回ticket失效，则客户端需要调用wx.login重新登录，然后调用/login返回新ticket。
+
+从卡片进入，获取行程详情/trip/driver/getDetailByTripId
+
+拼车群tab
+
+	根据本地配置，不对群流量以外的uid展示小程序	
+
+	获取群列表(包含群详情)/group/getListByUserId
+
+	群主可以编辑公告/group/updateNotice,可以填写微信号，用于外群
+
+	认领的文案从配置中读取，显示群主功能，如公告，置顶行程，微信群拉新；弹出文案展示客服微信号，说明加客服微信并把客服加群，客服确认群主在后台设置群主
+
+	点击一个群，获取群详情/group/getDetailByGroupId,获取区内行程列表/trip/driver/getListByGroupId,点击人找车，/trip/passenger/getListByGroupId
+
+	点击一个行程，获取行程详情直接从列表内容里面读取并展示
+
+	如果没有群，从本地配置获取fap
+
+搜索tab
+
+	从本地配置获取获取当前全平台群数量和行程信息
+
+	根据配置屏蔽标签搜索以及跨群搜索
+
+	搜索车找人/search/driver,人找车/search/passenger,获取按照顺路度排行的行程列表
+
+	点击行程获取详情，从列表页的内容带入
+
+	行程列表中的群列表可以展开（平时折叠），点击行程列表中的群名称，进入群主页，但是不显示群内行程列表，获取群详情/group/getDetailByGroupId
+
+发布tab
+	获取行程模板/trip/getTemplateList，行程管理模板在空的时候，提示“待创建新的模板”,   行程模板可以滚动；
+
+	删除模板调用/trip/deleteTemplate
+
+	点击模板中的行程或者点击下面的“人找车”“车找人”，自动填充页面。每次点击的时候，静默调用authorize，如果不授权，则报错说无法发布。
+		
+	发布填写页面调用/user/getProfile获取手机号和车辆信息。同时手机号和车辆信息的更新也是跳转到“我的资料”和“我的车辆”
+	
+	点击“保存到模板”，将行程保存为草稿模式/trip/driver/save, /trip/passenger/save,模板不做必填校验，只做填充项的合法性校验
+	
+	时间和地点选择参照“快滴拼车”小程序，其中时间是系统时间之后的，分钟间隔为5分钟；地点选择单独页面，会尝试要求获取地理位置，即使没有授权也能正常选择。
+
+	点击“发布”，从本地配置中读取“是否读取过安全协议”，如果没有先进入安全协议页面，确定/user/updateUserAgreement更新读过协议，并更新本地配置。 然后发布，/trip/driver/publish, /trip/passenger/publish
+	
+	点击发布的时候，根据本地配置弹窗or not，让用户选择“在以下拼车群展示”,如果展示，用/group/getListByUserId获取群列表
+	
+	发布行程中的手机号和车辆信息默认填充个人的车辆和资料信息，可以编辑，提交时候会保存
+
+	发布完成页的行程内容靠本地数据，不依赖服务端，“发布到拼车群”生成符合分享卡片要求的分享行程
+	
+我的tab
+	先/user/getProfile获取用户信息和车辆信息，如果用户状态为“资料未补全”，头像为默认头像，下面显示“登录”按钮，点击登录按钮，则尝试wx.authorize并wx.getuserinfo，然后/user/completeUser 补全资料，并刷新页面。
+	
+	我的行程，/trip/driver/getMyList  /trip/passenger/getMyList ,这里面会取出的行程包含已经取消的，但是不会包括模板。	
+	
+	点击一个行程，从列表页的内容获取行程详情
+
+	我的车辆，直接从之前加载的profile里面拿到car相关信息并展现。如果要更新则/user/updateUserCar
+	
+	我的资料，直接从之前加载的profile里面拿到user相关信息并展现。如果要更新则/user/updateUserPhone
+	
+	关于我们和联系客服读取本地配置
+	
+所有需要本地配置的地方，检查本地配置是否存在且未过期，否则，/config 获取所有配置按照kv写入本地storage。
+除发布行程之外的写操作都要alert，让选择让选择是否操作
+行程起点终点要用汉字图标
+行程中的选填项，为空的时候，人数，作为和价格要有默认显示值，“面议”“若干”
+所有行程详情的标题全都改为“行程详情”，最上方根据人找车或者车找人加上橘色或者绿色条幅，方便分享转发的自动截图(分享卡片由行程页自动截图而成，注意行程页布局，生成合适的行程页)
+UI设计使用更容易理解的普通空间，比如标签使用复选框
+所有tab挂公告，从配置读取，公告上有个可隐藏的小程序跳转开关
+——————————————————————————————————————————————
+表设计
+
+TripDriver
+	id
+	trip_id
+	user_id
+	begin_date				//行程开始开始日期
+	begin_time				//行程开始时间戳
+	start_location_point
+	start_location_name
+	end_location_point
+	end_location_name
+	route
+	price_everyone
+	price_total
+	seat_num
+	driver_no_smoke
+	driver_last_mile
+	driver_goods
+	driver_need_drive
+	driver_chat
+	driver_highway
+	driver_pet
+	driver_cooler
+	tips
+	status
+	is_del
+	created_time
+	modified_time
+	
+	
+TripPassenger
+	id
+	trip_id
+	user_id
+	begin_date
+	begin_time
+	start_location_point
+	start_location_name
+	end_location_point
+	end_location_name
+	price_everyone
+	people_num
+	passenger_no_smoke
+	passenger_last_mile
+	passenger_goods
+	passenger_can_drive
+	passenger_chat
+	passenger_luggage
+	passenger_pet
+	passenger_no_carsickness	
+	tips
+	status				smallint	0（草稿）1（正常）2（结束）
+	is_del
+	created_time
+	modified_time
+
+
+
+
+User
+	id
+	user_id
+	phone
+	wx_open_id
+	wx_union_id
+	wx_session_key
+	ticket
+	nick_name
+	gender
+	city
+	province
+	country
+	avatar_url
+	car_plate
+	car_brand
+	car_model
+	car_color
+	car_type
+	is_valid		//早期login的用户都是valid，以后随时切换成”只有群内进入“的用户初始化的时候才是valid
+	status
+	is_del
+	created_time
+	modified_time
+	
+	
+Group
+	id
+	group_id
+	wx_gid
+	member_num
+	trip_num
+	owner_user_id
+	owner_wx_id		//群主微信号，用于外部人加群展示
+	notice
+	status
+	is_del
+	created_time
+	modified_time
+
+GroupUser
+	id	
+	group_id
+	user_id
+	top_time
+	is_del
+	created_time
+	modified_time
+	
+GroupTrip
+	id
+	trip_id
+	group_id
+	is_del
+	created_time
+	modified_time
+
+
+——————————————————————————————————————————————
+
+接口总结
+/login
+
+/config
+
+/group/getDetailByGroupId
+/group/updateGroup
+
+/search/driver
+/search/passenger
+ 
+/trip/driver/getListByGroupId
+/trip/passenger/getListByGroupId
+/trip/driver/getDetailByTripId
+/trip/passenger/getDetailByTripId
+/trip/getTemplateList
+/trip/deleteTemplate
+/trip/driver/save
+/trip/passenger/save
+/trip/driver/publish
+/trip/passenger/publish
+/trip/driver/getMyList  
+/trip/passenger/getMyList 
+
+
+/user/getProfile
+/user/completeUser
+/user/updateUserCar
+/user/updateUserPhone
+/user/updateUserAgreement
+——————————————————————————————————————————————
+接口设计
+
+/login
+
+post:
+	code
+	is_valid
+return:
+	ticket
+内部逻辑：用code换取sessionkey和openid，如果不存在用户，则新建用户，如果存在，则更新sessionkey；同时将ticket也写入，作为自定义回会话保持登录态；服务端有个开关（只有is_valid的时候写入user表or忽略is_valid所有情况都写入user表）只有行程分享卡片进来的落地页带is_valid。这个字段用来关闭群入口以外的用户初始化。
+ps: 所有接口均要携带ticket访问，ticket检查逻辑：根据ticket获取sessonkey，如果checksession过期，则接口返回登录失效。
+
+/config
+内部逻辑：配置文件或者从user表中读取某些字段，或者行程表中，整体需要缓存
+post
+	ticket
+return
+	expire						//超时时间，秒
+	cert						//用于接口签名
+	docoment //文案
+		share_description			//分享小卡片上的描述语句
+		notice_list				//拼车群tab上的公告
+		adopt					//没有群主的群的认领文案
+		faq					//没有拼车群的时候展现的使用说明，同时也是”我的“中”关于我们“的内容
+		platform_info			//搜索页上方的平台信息，说明现在平台有x个微信群，y个行程
+		search_tip				//搜索页搜索按钮下面的提示信息
+		group_owner_info			//群主信息
+		publish_tip				//发布首页下面的说明文字
+		publish_finish_tip			//发布完成返回按钮下的文案
+		share_tip				//发布到拼车群按钮下的文案
+		car_tip				//我的车辆编辑页面保存按钮下的文案
+		user_tip				//我的资料编辑页面保存按钮下的文案
+		contact				//联系客服页的内容
+	switch  //开关
+		9999					//正常进入页面功能or展示维护公告
+		search_tag 				//搜索页是否展现标签选择
+		search_all_group			//搜索页展示是否跨群选项or写死文案只能群内搜索
+		show_agreement			//是否展示安全协议，当读完安全协议后，需要在服务端user表内和本地都置为否
+		trip_publish_to_all_group		//如果非空，值为发布选择群上面的提示文案，如果为空发布时候不弹出选择群
+	
+/group/getDetailByGroupId
+内部逻辑：根据groupid获取群详情
+post
+	ticket
+	group_id
+return
+	group_id
+	wx_gid
+	member_num
+	trip_num
+	is_owner		//如果是owner本人来访，为1，其他人访问，为0；
+	owner_nickname	
+	owner_avatar_url
+	notice
+
+/group/updateGroup
+内部逻辑：群主编辑群公告（需要鉴权：只有群主自己能update）
+post
+	ticket
+	group_id
+	notice		//可选，更新公告
+	owner_wx_id	//可选，更新群主微信号，用于展示，群主微信号一般是客服加群主的时候添加，群主自己也可以通过这个更新
+return
+	null	
+
+/trip/driver/getListByGroupId
+/trip/passenger/getListByGroupId
+内部逻辑：根据groupid获取群行程列表（需要鉴权：只有群成员才可以拉取），全都是”有效”行程，也没有顺路度展示
+post
+	ticket
+	group_id
+return
+	//司机行程列表
+	[
+		{
+				trip_id
+				trip_type
+				user
+					nick_name
+					avatar_url
+					gender	
+					car_plate
+					car_brand
+					car_model
+					car_color
+					car_type	
+				begin_date
+				begin_time
+				start_location_name
+				start_location_point
+				end_location_name
+				start_location_point
+				route
+				price_everyone
+				price_total
+				seat_num
+				driver_no_smoke
+				driver_last_mile
+				driver_goods
+				driver_need_drive
+				driver_chat
+				driver_highway
+				driver_pet
+				driver_cooler
+				tips
+		}，
+		{
+			trip_id
+			…
+		}
+	]
+
+	//乘客行程列表
+	[
+		{
+				trip_id
+				trip_type
+				user
+					nick_name
+					avatar_url
+					gender	
+				begin_date
+				begin_time
+				start_location_name
+				start_location_point
+				end_location_name
+				start_location_point
+				price_everyone
+				people_num				
+				passenger_no_smoke
+				passenger_last_mile
+				passenger_goods
+				passenger_can_drive
+				passenger_chat
+				passenger_luggage
+				passenger_pet
+				passenger_no_carsickness
+				tips
+		}，
+		{
+			trip_id
+			…
+		}
+	]
+
+
+/trip/driver/getDetailByTripId
+/trip/passenger/getDetailByTripId
+内部逻辑：根据tripid获取行程详情,  不需要展示是否有效的状态，无需鉴权
+post
+	ticket
+	trip_id
+return
+	//司机行程
+	trip_id
+	trip_type
+	user
+		nick_name
+		avatar_url
+		gender	
+		car_plate
+		car_brand
+		car_model
+		car_color
+		car_type	
+	begin_date
+	begin_time
+	start_location_name
+	start_location_point
+	end_location_name
+	start_location_point
+	route
+	price_everyone
+	price_total
+	seat_num
+	driver_no_smoke
+	driver_last_mile
+	driver_goods
+	driver_need_drive
+	driver_chat
+	driver_highway
+	driver_pet
+	driver_cooler
+	tips	
+
+
+
+	//乘客行程
+	trip_id
+	trip_type
+	user
+		nick_name
+		avatar_url
+		gender	
+	begin_date
+	begin_time
+	start_location_name
+	start_location_point
+	end_location_name
+	start_location_point
+	price_everyone
+	people_num				
+	passenger_no_smoke
+	passenger_last_mile
+	passenger_goods
+	passenger_can_drive
+	passenger_chat
+	passenger_luggage
+	passenger_pet
+	passenger_no_carsickness
+	tips
+
+
+/search/driver
+/search/passenger
+内部逻辑：顺路度算法根据时间在前后N小时内，起终点距离之和进行排序，搜索的输出总量要控制在100个；搜索自己群的行程，将自己群所有行程的tripids记录入内存，然后对搜索的顺路行程for过滤一遍，所以这里搜索的顺路行程的数量要超过正常分页数量（超过100，比如200）；
+post
+	//搜索司机
+	ticket
+	time
+	start_location_point
+	end_location_point
+	only_my_groups
+	driver_no_smoke
+	driver_last_mile
+	driver_goods
+	driver_need_drive
+	driver_chat
+	driver_highway
+	driver_pet
+	driver_cooler
+
+	//搜索乘客
+	ticket
+	time
+	start_location_point
+	end_location_point
+	only_my_groups
+	passenger_no_smoke
+	passenger_last_mile
+	passenger_goods
+	passenger_can_drive
+	passenger_chat
+	passenger_luggage
+	passenger_pet
+	passenger_no_carsickness
+
+return
+	//司机行程列表
+	[
+		{
+				trip_id
+				trip_type
+				user
+					nick_name
+					avatar_url
+					gender	
+					car_plate
+					car_brand
+					car_model
+					car_color
+					car_type	
+				begin_date
+				begin_time
+				start_location_name
+				start_location_point
+				end_location_name
+				start_location_point
+				route
+				price_everyone
+				price_total
+				seat_num
+				driver_no_smoke
+				driver_last_mile
+				driver_goods
+				driver_need_drive
+				driver_chat
+				driver_highway
+				driver_pet
+				driver_cooler
+				tips
+				fit_rate
+				groups
+					[
+						{group_id,wx_gid},
+						…
+					]
+		}，
+		{
+			trip_id
+			…
+		}
+	]
+
+	//乘客行程列表
+	[
+		{
+				trip_id
+				trip_type
+				user
+					nick_name
+					avatar_url
+					gender	
+				begin_date
+				begin_time
+				start_location_name
+				start_location_point
+				end_location_name
+				start_location_point
+				price_everyone
+				people_num				
+				passenger_no_smoke
+				passenger_last_mile
+				passenger_goods
+				passenger_can_drive
+				passenger_chat
+				passenger_luggage
+				passenger_pet
+				passenger_no_carsickness
+				tips
+				fit_rate
+				groups
+					[
+						{group_id,wx_gid},
+						…
+					]
+		}，
+		{
+			trip_id
+			…
+		}
+	]
+
+
+/trip/getTemplateList
+内部逻辑：获取一个用户类型为template的行程，这里要合并人找车和车找人两张表，按创建时间排序（鉴权：只能拉取自己的模板）
+post
+	ticket
+
+return 
+	[
+		{
+			trip_id
+			trip_type = driver	
+			begin_date
+			begin_time
+			start_location_name
+			start_location_point
+			end_location_name
+			start_location_point
+			route
+			price_everyone
+			price_total
+			seat_num
+			driver_no_smoke
+			driver_last_mile
+			driver_goods
+			driver_need_drive
+			driver_chat
+			driver_highway
+			driver_pet
+			driver_cooler
+			tips
+			
+		}，
+		{
+			trip_id
+			trip_type = passenger
+			begin_date
+			begin_time
+			start_location_name
+			start_location_point
+			end_location_name
+			start_location_point
+			price_everyone
+			people_num				
+			passenger_no_smoke
+			passenger_last_mile
+			passenger_goods
+			passenger_can_drive
+			passenger_chat
+			passenger_luggage
+			passenger_pet
+			passenger_no_carsickness
+			tips
+
+		}
+	]	
+
+/trip/deleteTemplate
+内部逻辑：根据tripid删除一个模板类的行程，必须是模板类行程才能被这个接口删除（鉴权：只能删除自己的模板）
+post
+	ticket
+	trip_id
+	
+return
+	null
+
+
+/trip/driver/save
+/trip/passenger/save
+内部逻辑：如果带着tripid来保存，则更新到现有模板，反之则创建新模板；不对字段做校验 
+
+//保存司机模板
+post
+	ticket
+	trip_id   	//can be null
+	begin_date
+	begin_time
+	start_location_name
+	start_location_point
+	end_location_name
+	start_location_point
+	route
+	price_everyone
+	price_total
+	seat_num
+	driver_no_smoke
+	driver_last_mile
+	driver_goods
+	driver_need_drive
+	driver_chat
+	driver_highway
+	driver_pet
+	driver_cooler
+	tips
+
+//保存乘客模板
+post
+	ticket
+	trip_id   	//can be null
+	begin_date
+	begin_time
+	start_location_name
+	start_location_point
+	end_location_name
+	start_location_point
+	price_everyone
+	people_num				
+	passenger_no_smoke
+	passenger_last_mile
+	passenger_goods
+	passenger_can_drive
+	passenger_chat
+	passenger_luggage
+	passenger_pet
+	passenger_no_carsickness
+	tips
+
+return
+	null
+	
+/trip/driver/publish
+/trip/passenger/publish
+内部逻辑：需要对字段做校验，需要在GroupTrip表内插入该用户的所有群(如果有groups参数则只插入groups的群)
+//发布司机行程
+post
+	ticket
+	trip_id   	//can be null
+	begin_date
+	begin_time
+	start_location_name
+	start_location_point
+	end_location_name
+	start_location_point
+	route
+	price_everyone
+	price_total
+	seat_num
+	driver_no_smoke
+	driver_last_mile
+	driver_goods
+	driver_need_drive
+	driver_chat
+	driver_highway
+	driver_pet
+	driver_cooler
+	tips
+	groups
+		[
+			group_id,
+			…
+		]
+
+//发布乘客行程
+post
+	ticket
+	trip_id   	//can be null
+	begin_date
+	begin_time
+	start_location_name
+	start_location_point
+	end_location_name
+	start_location_point
+	price_everyone
+	people_num				
+	passenger_no_smoke
+	passenger_last_mile
+	passenger_goods
+	passenger_can_drive
+	passenger_chat
+	passenger_luggage
+	passenger_pet
+	passenger_no_carsickness
+	tips
+	groups
+		[
+			group_id,
+			…
+		]
+
+
+/user/getProfile
+/user/completeUser
+/user/updateUserCar
+/user/updateUserPhone
+/user/updateUserAgreement
+比较简单，细节不表

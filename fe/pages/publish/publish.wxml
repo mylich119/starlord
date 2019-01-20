@@ -1,0 +1,49 @@
+<import src="/common/passengerPrice.wxml"/>
+<import src="/common/driverPrice.wxml"/>
+<view class='page publish-container'>
+  <view class='top-action-bar'>
+    <view class='section-title'>创建行程或模板</view>
+    <view class='btn-wrap'>
+      <view class='btn-group btn-group-tiny-padding'>
+        <button class='btn-create' type='primary' data-page='driverPublish' bindtap='goPage'>车找人</button>
+        <button class='btn-create' type='primary' data-page='passengerPublish' bindtap='goPage'>人找车</button>
+      </view>
+      <view class='info' wx:if="{{ docoment.publish_tip }}">{{ docoment.publish_tip }}</view>
+    </view>
+  </view>
+
+  <scroll-view>
+    <view class='section-title'>行程模板管理</view>
+    <view class='list'>
+      <block wx:for-items="{{templates}}" wx:key="{{item.id}}">
+        <view id="{{index}}" class="list-item" hover-class='ontap' data-tripid='{{item.trip_id}}' data-userid='{{item.user_id}}' data-page="{{ item.trip_type == 1 ? 'passengerPublish' : 'driverPublish' }}" bindtap='goPage'>
+          <view class='data-item data-item-title'>
+            <image class='item-icon' src='/images/{{ item.trip_type == 1 ? "Profile Hili.png" : "car_HL.png" }}' />
+            <text class='item-value item-value-hl {{ item.trip_type == 1 ? "item-value-passenger" : "item-value-driver" }}'>{{ item.trip_type == 1 ? '人找车' : '车找人' }}</text>
+            <view class='item-btn' data-tripid='{{item.trip_id}}' data-tripType='{{item.trip_type}}' catchtap='onDeleteTemplate' hover-class='ontap'>删除</view>
+          </view>
+          <view class='data-item'>
+            <image class='item-icon' src='/images/location_start.png' />
+            <text class='item-value'>{{ item.start_location_name }}</text>
+          </view>
+          <view class='data-item'>
+            <image class='item-icon' src='/images/location_end.png' />
+            <text class='item-value'>{{ item.end_location_name }}</text>
+          </view>
+          <view class='data-item'>
+            <image class='item-icon' src='/images/price.png' />
+            <view class='item-value' wx:if='{{ item.trip_type == 1 }}'>
+              <template is="passengerPrice" data="{{ detail: item }}" />
+            </view>
+            <view class='item-value' wx:if='{{ item.trip_type == 0 }}'>
+              <template is="driverPrice" data="{{ detail: item }}" />
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{!templates || templates.length == 0}}">
+        <text class='empty-message'>暂无模板</text>
+      </block>
+    </view>
+  </scroll-view>
+</view>

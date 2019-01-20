@@ -1,0 +1,16 @@
+.page {
+  text-align: center;
+  padding: 0 24px;
+}
+.icon {
+  display: block;
+  margin: 60px auto 32px auto;
+  width: 100px;
+  height: 100px;
+}
+.btn {
+  color: #3cc51f;
+  margin: 32px auto 0 auto;
+  display: inline-block;
+  width: 60px;
+}

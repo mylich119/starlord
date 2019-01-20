@@ -1,0 +1,5 @@
+<template name="driverPrice">
+  <block>
+    价格: {{ detail.price_everyone ? detail.price_everyone + '元/人' : '面议' }}，包车: {{ detail.price_total ? detail.price_total + '元' : '面议' }}，座位: {{ detail.seat_num || '未说明' }}
+  </block>
+</template>

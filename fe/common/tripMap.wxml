@@ -1,0 +1,11 @@
+<import src="./driverPrice.wxml"/>
+<template name="tripMap">
+  <map
+    class='trip_map'
+    polyline="{{ detail.polyline }}"
+    subkey="SMBBZ-FP5CJ-V4OFT-FXMXR-QPEOJ-BOFIO"
+    markers="{{ detail.markers }}"
+    include-points="{{ detail.include_points }}"
+    >
+  </map>
+</template>

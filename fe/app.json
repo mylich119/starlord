@@ -1,0 +1,67 @@
+{
+  "debug": true,
+  "pages": [
+    "pages/index/index",
+    "pages/profile/profile",
+    "pages/search/search",
+    "pages/publish/publish",
+    "pages/about/about",
+    "pages/service/service",
+    "pages/car/car",
+    "pages/info/info",
+    "pages/trip/trip",
+    "pages/driverPublish/driverPublish",
+    "pages/driverPublishInfo/driverPublishInfo",
+    "pages/driverPublishShare/driverPublishShare",
+    "pages/driverList/driverList",
+    "pages/passengerPublish/passengerPublish",
+    "pages/passengerPublishInfo/passengerPublishInfo",
+    "pages/passengerPublishShare/passengerPublishShare",
+    "pages/passengerList/passengerList",
+    "pages/groupIntro/groupIntro",
+    "pages/groupNotice/groupNotice",
+    "pages/groupOwnerTip/groupOwnerTip",
+    "pages/groupDetail/groupDetail",
+    "pages/9999/9999",
+    "pages/agreement/agreement"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "拼车群",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/users.png",
+        "selectedIconPath": "images/users_HL.png",
+        "text": "拼车群"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "iconPath": "images/search.png",
+        "selectedIconPath": "images/search_HL.png",
+        "text": "搜索"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "iconPath": "images/publish.png",
+        "selectedIconPath": "images/publish_HL.png",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/profile_HL.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

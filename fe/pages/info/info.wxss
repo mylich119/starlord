@@ -1,0 +1,22 @@
+.avatar {
+  height: 40px;
+  width: 40px;
+  display: block;
+  float: right;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.list-content {
+  text-align: right;
+}
+.phone {
+  text-align: right;
+  margin-top: -12px;
+}
+.auth-wrap {
+  margin: 24px;
+  text-align: center;
+}
+.auth-message {
+  padding: 12px 0;
+}

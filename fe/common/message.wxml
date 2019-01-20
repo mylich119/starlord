@@ -1,0 +1,8 @@
+<template name="message">
+<block wx:for-items="{{list}}" wx:key="{{item}}">
+  <view class="message">
+    <image class="message-icon" src="../../images/message_HL.png"></image>
+    <text class="message-text">{{ item }}</text>
+  </view>
+</block>
+</template>

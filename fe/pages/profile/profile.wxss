@@ -1,0 +1,53 @@
+.page {
+  padding: 0 0 12px 0;
+}
+.list-avatar {
+  height: 24px;
+  width: 24px;
+  margin-right: 12px;
+}
+.list-avatar-image {
+  height: 100%;
+  width: 100%;
+}
+.list-title {
+  color: #333;
+}
+
+.auth-wrap {
+  margin: 0 24px;
+}
+
+.profile {
+  padding: 8px 12px;
+}
+.profile-avatar {
+  height: 44px;
+  width: 44px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.nickname {
+  font-size: 24px;
+}
+.profile-item {
+  color: #666;
+}
+.profile-info-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 28px;
+  line-height: 28px;
+}
+.profile-refresh-btn {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  margin: 0 0 0 8px !important;
+  border-radius: 2px;
+}
+.profile-refresh-icon {
+  display: block;
+  height: 24px;
+  width: 24px;
+}

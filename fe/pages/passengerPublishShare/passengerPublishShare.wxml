@@ -1,0 +1,17 @@
+<import src="/common/passengerInfoBox.wxml"/>
+<import src="/common/emptyPage.wxml"/>
+<import src="/common/pageLoading.wxml"/>
+<view class='page'>
+  <block wx:if="{{ app_init }}">
+    <block wx:if="{{ detail.trip_id }}">
+      <template is="passengerInfoBox" data="{{ detail: detail, is_map_visible: true }}" />
+      <view class='fixed-bottom mb10'>
+        <button class='fixed-button' type='primary' bindtap='nativeBack'>查看本群所有行程</button>
+      </view>
+    </block>
+    <template is="emptyPage" data="{{ show: (!loading_data && !detail.trip_id), homepage: true }}" />
+  </block>
+  <block wx:if="{{ !app_init }}">
+    <template is="pageLoading" data="{{ loading: true }}" />
+  </block>
+</view>

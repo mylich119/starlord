@@ -1,0 +1,14 @@
+.page {
+  padding: 12px 12px 60px 12px;
+  text-align: justify;
+}
+.fixed-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.fixed-button {
+  margin: 0 !important;
+  border-radius: 0!important;
+}

@@ -1,0 +1,29 @@
+<import src="./passengerPrice.wxml"/>
+<template name="passengerItem">
+  <navigator
+        url="/pages/passengerPublishInfo/passengerPublishInfo?trip_id={{item.trip_id}}&user_id={{item.user_id}}&hide_share=1"  id="{{item.id}}" class="list-item">
+        <view class='list-content'>
+          <view class='trip-data-item'>
+            <image class='trip-item-icon trip-date-icon' src='/images/clock.png' />
+            <view class='trip-item-value trip-date'>
+              <view class='trip-date-value'>{{item.is_everyday == 1 ? '每天' : item.begin_date}} {{ item.begin_time }}</view>
+              <view class='trip-list-btn' hover-class='ontap' catchtap='onCancelTrip' data-tripid="{{ item.trip_id }}" data-triptype="passenger">置顶</view>
+            </view>
+          </view>
+          <view class='trip-data-item'>
+            <image class='trip-item-icon' src='/images/location_start.png' />
+            <text class='trip-item-value'>{{item.start_location_name}}</text>
+          </view>
+          <view class='trip-data-item'>
+            <image class='trip-item-icon' src='/images/location_start.png' />
+            <text class='trip-item-value'>{{item.end_location_name}}</text>
+          </view>
+          <view class='trip-data-item'>
+            <image class='trip-item-icon' src='/images/price.png' />
+            <view class='trip-item-value'>
+              <template is="passengerPrice" data="{{ detail: item }}" />
+            </view>
+          </view>
+        </view>
+      </navigator>
+</template>

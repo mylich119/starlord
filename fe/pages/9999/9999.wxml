@@ -1,0 +1,5 @@
+<view class="page">
+  <image class="icon" src="../../images/maintain.png"></image>
+  <text class='text'>{{ switch['9999_context'] }}</text>
+  <view class='btn' hover-class='ontap' bindtap='retry'>重 试</view>
+</view>

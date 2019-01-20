@@ -1,0 +1,21 @@
+<import src="/common/passengerInfoBox.wxml"/>
+<import src="/common/emptyPage.wxml"/>
+<import src="/common/guideModal.wxml"/>
+<view class='page'>
+  <block wx:if="{{ detail.trip_id }}">
+    <template is="passengerInfoBox" data="{{ detail: detail, from_search: from_search, search_my: search_my, is_map_visible: from_publish != 1, is_hide_user: is_hide_user }}" />
+    <view class='submit-wrap' wx:if="{{ !hide_share && detail.is_expired == 0 }}">
+      <button type='primary' open-type="share" wx:if="{{need_publish_guide == 0}}">发布到拼车群</button>
+      <button type='primary' bindtap='showGuideModal' wx:else>发布到拼车群</button>
+      <view class='info'>{{ docoment.share_tip }}</view>
+      <block wx:if="{{ from_publish == 1 }}">
+        <navigator open-type="navigateBack"><button type='primary'>发布完成</button></navigator>
+        <view class='info'>{{ docoment.publish_finish_tip }}</view>
+        <image class='image-pre-loader' src='{{ detail.share_img_url }}'></image>
+      </block>
+    </view>
+  </block>
+  <template is="emptyPage" data="{{ show: (!loading_data && !detail.trip_id), homepage: true }}" />
+</view>
+
+<template is="guideModal" data="{{isModalVisible, description: docoment.first_publish_alert}}" />

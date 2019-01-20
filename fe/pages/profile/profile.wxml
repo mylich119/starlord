@@ -1,0 +1,53 @@
+<import src="/common/loginBtn.wxml"/>
+<!--template-->
+<template name="list">
+  <navigator url="/pages/{{uri}}/{{uri}}" class="list-item">
+    <view class='list-avatar'>
+      <image class="list-avatar-image" src="/images/{{avatar}}" />
+    </view>
+    <view class='list-content'>
+      <text class='list-title'>{{title}}</text>
+    </view>
+    <image class='list-arrow' src='/images/arrow_right.png' />
+  </navigator>
+</template>
+
+
+<view class='page'>
+  <!-- profile info -->
+  <view class='list'>
+    <block wx:if="{{is_login && profile.nick_name}}">
+      <view class='list-item profile'>
+        <view class='list-avatar profile-avatar'>
+          <open-data class="list-avatar-image" type="userAvatarUrl" lang="zh_CN"></open-data>
+        </view>
+        <view class='list-content'>
+          <view class='profile-info-wrap'>
+            <view class='nickname'>{{ profile.nick_name }}</view>
+          </view>
+          <view class='profile-item'>{{ profile.country }}{{ profile.city }}</view>
+        </view>
+        <view>
+          <button size="mini" type='primary' class='profile-refresh-btn' open-type="getUserInfo" bindgetuserinfo="getUserInfo" lang="zh_CN" loading='{{ loading_profile }}' disabled='{{ loading_profile }}'>
+              刷新
+            </button>
+        </view>
+      </view>
+    </block>
+    <template is="loginBtn" wx:if="{{ !loading_profile }}" data='{{is_login: is_login, auth_message: null}}' />
+  </view>
+
+  <!-- 功能链接 -->
+  <view class='list'>
+    <template is="list" data="{{uri: 'trip', avatar: 'history.png', title: '我的行程'}}" />
+    <template is="list" data="{{uri: 'car', avatar: 'car.png', title: '我的车辆'}}" />
+    <template is="list" data="{{uri: 'info', avatar: 'user_info.png', title: '我的资料'}}" />
+  </view>
+
+  <!-- 系统功能 -->
+  <view class='list'>
+    <template is="list" data="{{uri: 'about', avatar: 'about_us.png', title: '关于我们'}}" />
+    <template is="list" data="{{uri: 'service', avatar: 'service.png', title: '联系客服'}}" />
+  </view>
+
+</view>

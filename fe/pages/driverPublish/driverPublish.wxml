@@ -1,0 +1,79 @@
+<import src="/common/loginBtn.wxml"/>
+<import src="/common/phone.wxml"/>
+<import src="/common/car.wxml"/>
+<import src="/common/tripForm.wxml"/>
+<view class='page page-with-bottom-action'>
+  <block wx:if="{{is_login}}">
+    <form catchsubmit="formSubmit">
+      <view class='section-title'>基本信息（必填）</view>
+      <view class='list'>
+        <template is="tripForm" data='{{ data: form_data, show_frequency: true, limit: limit }}' />
+        <!---->
+        <template is="phone" data="{{phone:profile.phone}}" />
+      </view>
+      <view class='section-title'>其它信息（选填）</view>
+      <view class='list'>
+        <!---->
+        <template is="car" data="{{info: profile}}" />
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>途径地点</text>
+          </view>
+          <view class='list-content'>
+            <input class='text-input' bindinput="bindinput" data-name='route' value='{{ form_data.route }}' placeholder="请输入途径地点，用逗号隔开" />
+          </view>
+        </view>
+        <!---->
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>价格</text>
+          </view>
+          <view class='list-content price-wrap'>
+            <input type="digit" class='price-input' bindinput="bindinput" data-name='price_everyone' value='{{ form_data.price_everyone }}' />
+            <text class='price-label'>元/人，包车</text>
+            <input type="digit" class='price-input' bindinput="bindinput" data-name='price_total' value='{{ form_data.price_total }}' />
+            <text class='price-label'>元</text>
+          </view>
+        </view>
+        <!---->
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>座位数</text>
+          </view>
+          <view class='list-content'>
+            <input type="number" class='text-input' bindinput="bindinput" data-name='seat_num' value='{{ form_data.seat_num }}' placeholder="输入可乘坐座位数量" />
+          </view>
+          <view class='list-extra'>个</view>
+        </view>
+        <!---->
+        <view class='list-item list-tags-wrap'>
+          <view class='label'>
+            <text class='label-text'>筛选标签</text>
+          </view>
+          <view class='list-content list-tags'>
+            <block wx:for-items="{{tags}}" wx:key="{{item.value}}">
+              <view bindtap='toggleTag' data-name='{{ item.value }}' class='list-tag-item {{ form_data[item.value] == 1 ? "list-tag-item-active" : "" }}' hover-class='ontap'>{{item.label}}</view>
+            </block>
+          </view>
+        </view>
+        <!---->
+        <view class='list-item'>
+          <view class='label'>
+            <text class='label-text'>备注</text>
+          </view>
+          <view class='list-content'>
+            <input class='text-input' bindinput="bindinput" data-name='tips' value='{{ form_data.tips }}' cursor-spacing="{{ 48 }}" placeholder="输入备注" />
+          </view>
+        </view>
+        <!---->
+      </view>
+      <view class='submit-wrap bottom-action-wrapper'>
+        <button type='primary' class='submit-btn' formType="submit" data-type='save' loading='{{loading_submit}}' plain >保存到模板</button>
+        <button type='primary' class='submit-btn' formType="submit" data-type='publish' loading='{{loading_submit}}'>去发布</button>
+      </view>
+    </form>
+  </block>
+  <block wx:if="{{ !is_login && !loading_profile }}">
+    <template is="loginBtn" data="{{is_login: is_login, auth_message:'该操作需要登录授权。'}}" />
+  </block>
+</view>

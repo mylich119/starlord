@@ -1,0 +1,19 @@
+<template name="car">
+
+  <navigator class='list-item' url='/pages/car/car?back=1'>
+    <view class='label'>
+      <text class='label-text'>车辆</text>
+    </view>
+    <view class='list-content' hover-class='ontap'>
+      <view wx:if="{{ !!info.car_plate }}" class='car-info-detail'>
+        {{ info.car_plate || '' }}
+        {{ info.car_brand || '' }}
+        {{ info.car_model || '' }}
+        {{ info.car_color || '' }}
+        {{ info.car_type || '' }}
+      </view>
+      <view wx:if='{{ !info.car_plate }}' class='placeholder'>设置车辆信息</view>
+    </view>
+    <image class='list-arrow' src='/images/arrow_right.png' />
+  </navigator>
+</template>

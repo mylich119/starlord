@@ -1,0 +1,14 @@
+.list {
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.textarea-input {
+  height: 60px;
+}
+.submit-wrap {
+  padding: 24px 12px;
+}
+.permission {
+  text-align: center;
+  padding: 40px 0 0 0;
+}
