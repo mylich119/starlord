@@ -109,7 +109,6 @@ Page({
     const share_title = (user_config && user_config.docoment && user_config.docoment.share_description) ? user_config.docoment.share_description : null;
     const { trip_id, user_id, detail } = self.data;
 
-    console.log('on share app');
     return {
       title: share_title,
       path: `/pages/driverPublishShare/driverPublishShare?trip_id=${trip_id}&user_id=${user_id}`,

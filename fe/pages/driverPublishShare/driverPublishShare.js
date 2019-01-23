@@ -127,7 +127,7 @@ Page({
   onShareAppMessage: function () {
     const { user_config } = app.globalData;
     const share_title = (user_config && user_config.docoment && user_config.docoment.share_description) ? user_config.docoment.share_description : null;
-    const { trip_id, user_id } = self.data;
+    const { trip_id, user_id, detail } = self.data;
 
     return {
       title: share_title,
