@@ -132,7 +132,7 @@ Page({
     return {
       title: share_title,
       path: `/pages/driverPublishShare/driverPublishShare?trip_id=${trip_id}&user_id=${user_id}`,
-      imageUrl: '../../images/address.png'
+      imageUrl: (detail && detail.share_img_url) ? detail.share_img_url : null
     };
   },
 

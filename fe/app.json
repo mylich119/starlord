@@ -63,5 +63,10 @@
         "text": "我的"
       }
     ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息用于拼车地点选择"
+    }
   }
 }
