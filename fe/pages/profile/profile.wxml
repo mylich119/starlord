@@ -39,7 +39,7 @@
 
   <!-- 功能链接 -->
   <view class='list'>
-    <template is="list" data="{{uri: 'trip', avatar: 'history.png', title: '我的行程'}}" />
+    <template is="list" data="{{uri: 'trip', avatar: 'history.png', title: '已发布行程'}}" />
     <template is="list" data="{{uri: 'car', avatar: 'car.png', title: '我的车辆'}}" />
     <template is="list" data="{{uri: 'info', avatar: 'user_info.png', title: '我的资料'}}" />
   </view>
